@@ -1,0 +1,41 @@
+<h2>Data Siswa</h2>
+<head>
+    <title>Data Siswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+
+<a href="{{ route('siswa.create') }}">Tambah Data</a>
+
+<table border="1">
+    <tr>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>No HP</th>
+        <th>Aksi</th>
+    </tr>
+
+    @foreach($siswas as $s)
+    <tr>
+        <td>{{ $s->nama }}</td>
+        <td>{{ $s->alamat }}</td>
+        <td>{{ $s->no_hp }}</td>
+        <td>
+            <a href="{{ route('siswa.edit', $s->id) }}">Edit</a>
+
+            <form action="{{ route('siswa.destroy', $s->id) }}"
+                  method="POST"
+                  style="display:inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        onclick="return confirm('Yakin hapus data?')">
+                    Hapus
+                </button>
+            </form>
+        </td>
+    </tr>
+    @endforeach
+</table>
+</body>
+</html>
