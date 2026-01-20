@@ -52,23 +52,28 @@
                             <td>{{ $row->nama }}</td>
                             <td>{{ $row->alamat }}</td>
                             <td>{{ $row->no_hp }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('siswa.edit', $row->id) }}"
-                                   class="btn btn-warning btn-sm me-1">
-                                    Edit
-                                </a>
+                          <td class="text-center">
+								@if(auth()->user()->role === 'admin')
+									<a href="{{ route('siswa.edit', $row->id) }}"
+									   class="btn btn-warning btn-sm me-1">
+										Edit
+									</a>
 
-                                <form action="{{ route('siswa.destroy', $row->id) }}"
-                                      method="POST"
-                                      class="d-inline"
-                                      onsubmit="return confirm('Yakin hapus data?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
+									<form action="{{ route('siswa.destroy', $row->id) }}"
+										  method="POST"
+										  class="d-inline"
+										  onsubmit="return confirm('Yakin hapus data?')">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger btn-sm">
+											Delete
+										</button>
+									</form>
+								@else
+									<span class="badge bg-secondary">View Only</span>
+								@endif
+							</td>
+
                         </tr>
                     @empty
                         <tr>
